@@ -7,7 +7,7 @@
 	<h1>Postage Submission Form</h1>
 	<p>What type of mail do you want to send and what size?</p>
 	<form action="/getRate" onsubmit="return validateForm()" method="get">
-		<select name="letter">
+		<select name="letter" id="letter">
 			<option>Stamped Letter</option>
 			<option>Metered Letter</option>
 			<option>Large Envelope</option>
@@ -25,16 +25,20 @@
 
 <script>
 function validateForm() {
-    var x, text;
+    var x, text, let;
     var isTrue;
 
     // Get the value of the input field with id="numb"
     x = document.getElementById("numb").value;
+    let = document.getElementById("letter").value;
 
     // If x is Not a Number or less than one or greater than 10
-    if (isNaN(x) || x < 1 || x > 13) {
-        text = "Input not valid";
+    if (isNaN(x) || x < 0 || x > 13) {
+        text = "Can't be greater then 13 and less then 0";
         isTrue = false;
+    } else if ((let == 'Stamped Letter' || let == 'Metered Letter') && x > 3.5) {
+    	text = "can't be greater then 3.5 for Stamped and Metered";
+    	isTrue = false;
     } else {
         text = "Input OK";
         isTrue = true;

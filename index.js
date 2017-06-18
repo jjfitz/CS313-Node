@@ -40,8 +40,19 @@ function computeOperation(response, letter, weight) {
 	//letter = letter.toLowerCase();
 
 	var result = 0;
+	var original = weight;
 
-	if (letter == "Stamped Letter") {
+	if ((letter == "Stamped Letter" || letter == "Metered Letter") && weight <= 3.5 && weight >= 3) {
+		;
+	} else {
+		weight = Math.ceil(weight);
+	}
+
+	if (letter == "Stamped Letter" && (weight <= 3.5 && weight >= 3)) {
+		result = 1.12;
+	} else if (letter == "Metered Letter" && (weight <= 3.5 && weight >= 3)) {
+		result = 1.09;
+	} else if (letter == "Stamped Letter") {
 		result = .28 + weight * .21;
 	} else if (letter == "Metered Letter") {
 		result = .25 + weight * .21;		
@@ -60,7 +71,7 @@ function computeOperation(response, letter, weight) {
 	result = result.toFixed(2);
 
 	// Set up a JSON object of the values we want to pass along to the EJS result page
-	var params = {letter: letter, weight: weight, result: result};
+	var params = {letter: letter, original: original, result: result};
 
 	// Render the response, using the EJS page "result.ejs" in the pages directory
 	// Makes sure to pass it the parameters we need.
