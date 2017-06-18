@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Postal Rates</title>
+</head>
+<body>
+	<h1>Postage Submission Form</h1>
+	<p>What type of mail do you want to send and what size?</p>
+	<form action="/getRate" onsubmit="return validateForm()" method="get">
+		<select name="letter">
+			<option>Stamped Letter</option>
+			<option>Metered Letter</option>
+			<option>Large Envelope</option>
+			<option>Parcel</option>
+		</select>
+
+		<input type="text" id="numb" name="weight" required>
+
+		<br><br>
+		<input type="submit" value="Get Result">
+
+	</form>
+
+	<p id="demo"> </p>
+
+<script>
+function validateForm() {
+    var x, text;
+    var isTrue;
+
+    // Get the value of the input field with id="numb"
+    x = document.getElementById("numb").value;
+
+    // If x is Not a Number or less than one or greater than 10
+    if (isNaN(x) || x < 1 || x > 13) {
+        text = "Input not valid";
+        isTrue = false;
+    } else {
+        text = "Input OK";
+        isTrue = true;
+    }
+    document.getElementById("demo").innerHTML = text;
+    return isTrue;
+}
+</script>
+
+</body>
+</html>
