@@ -42,27 +42,35 @@ function computeOperation(response, letter, weight) {
 	var result = 0;
 	var original = weight;
 
-	if ((letter == "Stamped Letter" || letter == "Metered Letter") && weight <= 3.5 && weight >= 3) {
-		;
+	if ((letter == "Stamped Letter" || letter == "Metered Letter") && weight <= 3.5 && weight > 3) {
+		console.log("it is a special stamped or metered");
 	} else {
 		weight = Math.ceil(weight);
+		console.log("the weight is now " + weight);
 	}
 
-	if (letter == "Stamped Letter" && (weight <= 3.5 && weight >= 3)) {
+	if (letter == "Stamped Letter" && (weight <= 3.5 && weight > 3)) {
 		result = 1.12;
-	} else if (letter == "Metered Letter" && (weight <= 3.5 && weight >= 3)) {
+		console.log("it is 3.5 stamped");
+	} else if (letter == "Metered Letter" && (weight <= 3.5 && weight > 3)) {
 		result = 1.09;
+		console.log("it is 3.5 metered");
 	} else if (letter == "Stamped Letter") {
 		result = .28 + weight * .21;
+		console.log("it is stamped");
 	} else if (letter == "Metered Letter") {
-		result = .25 + weight * .21;		
+		result = .25 + weight * .21;
+		console.log("it is metered");	
 	} else if (letter == "Large Envelope") {
 		result = .77 + weight * .21;
+		console.log("it is large");
 	} else if (letter == "Parcel") {
 		if (weight < 5) {
 			result = 2.67;
+			console.log("it is less then 5");
 		} else {
 			result = 1.95 + weight * .18;
+			console.log("it is greater then 5");
 		}
 	} else {
 		// It would be best here to redirect to an "unknown operation"
