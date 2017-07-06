@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Make A Goal</title>
+  <% include ../partials/header.ejs %>
+
+  </head>
+  <body>
+    <% include ../partials/nav.ejs %>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>What Goal do you want to make?</h1>
+        <form method="post" action="insert-budget.php">
+          <div class="form-group">
+            <label>Budget Name</label>
+            <input type="text" class="form-control" name="budget_name" placeholder="Budget Name">
+          </div>
+
+          <div class="form-group">
+            <label>Monthly Budget Goal</label>
+            <input type="number" class="form-control" name="goal" placeholder="$$$">
+          </div>
+
+          <div class="form-group">
+            <label>How long do you want to keep this budget?</label>
+            <select class="form-control" name="end_date">
+              <option value="Jan">January</option>
+              <option value="Feb">February</option>
+              <option value="Mar">March</option>
+              <option value="Apr">April</option>
+              <option value="May">May</option>
+              <option value="Jun">June</option>
+              <option value="July">July</option>
+              <option value="Aug">August</option>
+              <option value="Sep">September</option>
+              <option value="Oct">October</option>
+              <option value="Nov">November</option>
+              <option value="Dec">December</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-default">Submit</button>
+
+        </form>
+      </div>
+    </div>
+
+
+  <div style="height:400px"></div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>
