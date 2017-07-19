@@ -3,6 +3,25 @@
 <head>
     <title>Goals</title>
   <% include ../partials/header.ejs %>
+  <style>
+      #map {
+        height: 100%;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+
 </head>
 
 <body>
@@ -12,42 +31,57 @@
 <!-- JUMBOTRON -->
 <div class="jumbotron">
   <div class="container">
-    <!--<ul class="list-unstyled">
-        <li class="dropdown" class="btn btn-default">
-              <a href="#" class="dropdown-toggle" class="btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Goal View <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Day</a></li>
-                <li><a href="#">Week</a></li>
-                <li><a href="#">Month</a></li>
-                <li><a href="#">Year</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li role="separator" class="divider"></li></ul></li>
-            </ul>-->
-            <div class="form-group">
-            <label>Goal View</label>
-            <select class="form-control" name="end_date" id="goal_view">
-              <option value="Daily">Day</option>
-              <option value="Weekly">Week</option>
-              <option value="Monthly">Month</option>
-              <option value="Year">Year</option>
-            </select>
-          </div>
+      <div class="form-group">
+      <label>Goal View</label>
+      <select class="form-control" name="end_date" id="goal_view" onchange="changeView()">
+        <option value="Daily">Day</option>
+        <option value="Weekly">Week</option>
+        <option value="Monthly">Month</option>
+        <option value="Year">Year</option>
+      </select>
+    </div>
     <h1>Get These Goals Done Today!</h1>
     <p>(Check them off once they are done.)</p>
-    <% for (var i = 0; i < goals.length; i++) { %>
-    <% if (goals[i].category === "Daily") { %>
-    <ul>
-        <li><%= goals[i].goal_name %></li>
-        <li><%= goals[i].description %></li>
-        <li><%= goals[i].start_date %></li>
-        <li><%= goals[i].end_date %></li>
-        <li><%= goals[i].category %></li>
-</ul>
-<% } } %>
+    <div id="vi">
+    <% for (var i = 0; i < goals.length; i++) { %><% if (goals[i].category === "Daily") { %><h2><%= goals[i].goal_name %></h2><p><%= goals[i].description %></p><% } } %>
+    </div>
+
   </div>
 </div>
-<div class="container">
+
+<div class="container" height="50%">
+
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+      <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=apikeygoeshere&callback=initMap">
+    </script>
 
 </div>
 
@@ -55,51 +89,18 @@
 <div style="height:400px"></div>
 
 <script>
-function validateForm() {
-    var user, pass, conf, text;
-    var isTrue = false;
 
-    // Get the value of the input field with id="numb"
-    user = document.getElementById("username1").value;
-    pass = document.getElementById("password1").value;
-    conf = document.getElementById("confirm").value;
-
-    // If user is Not a Number or less than one or greater than 10
-    if (isNaN(user) || user < 0 || user > 13) {
-        text = "Can't be greater then 13 and less then 0";
-        isTrue = false;
-    } else if ((let == 'Stamped Letter' || let == 'Metered Letter') && x > 3.5) {
-      text = "can't be greater then 3.5 for Stamped and Metered";
-      isTrue = false;
-    } else {
-        text = "Input OK";
-        isTrue = true;
-    }
-    document.getElementById("demo").innerHTML = text;
-    return isTrue;
-}
-
-function validate() {
-    var user, pass, conf, text;
-    var isTrue = true; //Change this later
-
-    // Get the value of the input field with id="numb"
-    /*user = document.getElementById("username").value;
-    pass = document.getElementById("password").value;
-
-    // If user is Not a Number or less than one or greater than 10
-    if (isNaN(user) || user < 0 || user > 13) {
-        text = "Can't be greater then 13 and less then 0";
-        isTrue = false;
-    } else if ((let == 'Stamped Letter' || let == 'Metered Letter') && x > 3.5) {
-      text = "can't be greater then 3.5 for Stamped and Metered";
-      isTrue = false;
-    } else {
-        text = "Input OK";
-        isTrue = true;
-    }
-    document.getElementById("demo").innerHTML = text;
-    return isTrue;*/
+function changeView() {
+  var view = document.getElementById("goal_view").value;
+  if (view === "Daily") {
+    document.getElementById("vi").innerHTML = "<% for (var i = 0; i < goals.length; i++) { %><% if (goals[i].category === "Daily") { %><h2><%= goals[i].goal_name %></h2><p><%= goals[i].description %></p><% } } %>";
+  } else if (view === "Weekly") {
+    document.getElementById("vi").innerHTML = "<% for (var i = 0; i < goals.length; i++) { %><% if (goals[i].category === "Weekly") { %><h2><%= goals[i].goal_name %></h2><p><%= goals[i].description %></p><% } } %>";
+  } else if (view === "Monthly") {
+    document.getElementById("vi").innerHTML = "<% for (var i = 0; i < goals.length; i++) { %><% if (goals[i].category === "Monthly") { %><h2><%= goals[i].goal_name %></h2><p><%= goals[i].description %></p><% } } %>";
+  } else if (view === "Year") {
+    document.getElementById("vi").innerHTML = "<% for (var i = 0; i < goals.length; i++) { %><% if (goals[i].category === "Year") { %><h2><%= goals[i].goal_name %></h2><p><%= goals[i].description %></p><% } } %>";
+  }
 }
 
 </script>

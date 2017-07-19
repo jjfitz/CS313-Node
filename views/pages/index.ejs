@@ -20,7 +20,7 @@
   <h1 class="page-header">Log In and start planning!</h1>
 <!-- LogIn FORMS -->
 <p id="warn"> </p>
-<form class="form-inline" method="post" action="/checkUser" onsubmit="return validate()">
+<form class="form-inline" method="post" action="/checkUser">
 
   <div class="form-group">
     <label>Username</label>
@@ -37,7 +37,7 @@
 
 </form>
 
-<h4>Or Sign Up!</h4>
+<!-- <h4>Or Sign Up!</h4>
 
 <p id="warning"> </p>
 <form class="form-inline" method="post" action="/checkUser" onsubmit="return validateForm()">
@@ -60,7 +60,7 @@
 
   <button type="submit" class="btn btn-default">Sign Up</button>
 
-</form>
+</form> -->
 
 
 </div>
@@ -68,55 +68,7 @@
 
 <div style="height:400px"></div>
 
-<script>
-function validateForm() {
-    var user, pass, conf, text;
-    var isTrue = false;
 
-    // Get the value of the input field with id="numb"
-    user = document.getElementById("username1").value;
-    pass = document.getElementById("password1").value;
-    conf = document.getElementById("confirm").value;
-
-    // If user is Not a Number or less than one or greater than 10
-    if (isNaN(user) || user < 0 || user > 13) {
-        text = "Can't be greater then 13 and less then 0";
-        isTrue = false;
-    } else if ((let == 'Stamped Letter' || let == 'Metered Letter') && x > 3.5) {
-      text = "can't be greater then 3.5 for Stamped and Metered";
-      isTrue = false;
-    } else {
-        text = "Input OK";
-        isTrue = true;
-    }
-    document.getElementById("demo").innerHTML = text;
-    return isTrue;
-}
-
-function validate() {
-    var user, pass, conf, text;
-    var isTrue = true; //Change this later
-
-    // Get the value of the input field with id="numb"
-    /*user = document.getElementById("username").value;
-    pass = document.getElementById("password").value;
-
-    // If user is Not a Number or less than one or greater than 10
-    if (isNaN(user) || user < 0 || user > 13) {
-        text = "Can't be greater then 13 and less then 0";
-        isTrue = false;
-    } else if ((let == 'Stamped Letter' || let == 'Metered Letter') && x > 3.5) {
-      text = "can't be greater then 3.5 for Stamped and Metered";
-      isTrue = false;
-    } else {
-        text = "Input OK";
-        isTrue = true;
-    }
-    document.getElementById("demo").innerHTML = text;
-    return isTrue;*/
-}
-
-</script>
 
 
 </body>

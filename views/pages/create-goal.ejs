@@ -11,20 +11,20 @@
     <div class="jumbotron">
       <div class="container">
         <h1>What Goal do you want to make?</h1>
-        <form method="post" action="insert-budget.php">
+        <form method="post" action="/insertGoal">
           <div class="form-group">
-            <label>Budget Name</label>
-            <input type="text" class="form-control" name="budget_name" placeholder="Budget Name">
+            <label>Goal Name</label>
+            <input type="text" class="form-control" id="goal_name" name="goal_name" placeholder="Goal Name" required>
           </div>
 
           <div class="form-group">
-            <label>Monthly Budget Goal</label>
-            <input type="number" class="form-control" name="goal" placeholder="$$$">
+            <label>Description for Goal</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Description" required>
           </div>
 
           <div class="form-group">
-            <label>How long do you want to keep this budget?</label>
-            <select class="form-control" name="end_date">
+            <label>How long do you want to keep this goal?</label>
+            <select class="form-control" name="end_date" id="end_date">
               <option value="Jan">January</option>
               <option value="Feb">February</option>
               <option value="Mar">March</option>
@@ -38,6 +38,21 @@
               <option value="Nov">November</option>
               <option value="Dec">December</option>
             </select>
+          </div>
+
+          <div class="form-group">
+            <label>How often do you want to do this goal?</label>
+            <select class="form-control" name="goal_view" id="goal_view">
+              <option value="Daily">Day</option>
+              <option value="Weekly">Week</option>
+              <option value="Monthly">Month</option>
+              <option value="Year">Year</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Do you want to add a location?</label>
+            <input type="text" class="form-control" name="location" id="location" placeholder="Location">
           </div>
 
           <button type="submit" class="btn btn-default">Submit</button>
